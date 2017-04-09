@@ -1,0 +1,68 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
+
+/**
+ * @ORM\Entity
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
+ * @ORM\Table()
+ */
+class Student {
+
+    use \Gedmo\Timestampable\Traits\TimestampableEntity,
+        \Gedmo\Blameable\Traits\BlameableEntity,
+        \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    private $name;
+    
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 100,
+     *      maxMessage = "Введенное значение должно быть больше 0 и не должно превышать 100",
+     *      minMessage = "Введенное значение должно быть больше 0"
+     * )
+     */
+    private $mark;
+
+    /**
+     * @ORM\Column(type="date", nullable=false)
+     */
+    private $date;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $description;
+
+    public function __toString() {
+        return $this->description;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+
+}

@@ -1,0 +1,8 @@
+app_student_api:
+    resource: "@AppBundle/Controller/StudentRESTController.php"
+    type:   rest
+    prefix:   /api
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
